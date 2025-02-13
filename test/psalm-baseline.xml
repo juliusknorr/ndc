@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.14.1@b9d355e0829c397b9b3b47d0c0ed042a8a70284d">
+<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+  <file src="src/Commands/Configure.php">
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[ask]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Commands/Create/App.php">
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[ask]]></code>
+      <code><![CDATA[ask]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
   <file src="src/Commands/Create/EventListener.php">
-    <TooFewArguments>
-      <code>sprintf</code>
-    </TooFewArguments>
+    <RedundantFunctionCall>
+      <code><![CDATA[sprintf]]></code>
+    </RedundantFunctionCall>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[ask]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Commands/Release.php">
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[ask]]></code>
+    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Context/AuthorContext.php">
     <ForbiddenCode>
@@ -20,16 +39,16 @@
   </file>
   <file src="src/Generator/Changelog.php">
     <UndefinedDocblockClass>
-      <code>$repo</code>
-      <code>$repo</code>
+      <code><![CDATA[$repo]]></code>
+      <code><![CDATA[$repo]]></code>
     </UndefinedDocblockClass>
     <UndefinedMethod>
-      <code>show</code>
+      <code><![CDATA[show]]></code>
     </UndefinedMethod>
   </file>
   <file src="src/Model/PackageJson.php">
     <ForbiddenCode>
-      <code>var_dump($jsonString)</code>
+      <code><![CDATA[var_dump($jsonString)]]></code>
       <code><![CDATA[var_dump($this->path)]]></code>
     </ForbiddenCode>
   </file>
