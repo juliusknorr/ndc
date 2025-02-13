@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Nextcloud\DevCli\Model;
@@ -10,7 +11,7 @@ class Version {
 		[$semVer, $modifier] = strpos($versionString, '-') > 0 ? explode('-', $versionString) : [$versionString, ''];
 		$this->versionModifier = $modifier;
 		$semVerArray = explode('.', $semVer);
-		$this->versionArray = array_map(fn($i) => (int)$i, [
+		$this->versionArray = array_map(fn ($i) => (int)$i, [
 			$semVerArray[0] ?? 0,
 			$semVerArray[1] ?? 0,
 			$semVerArray[2] ?? 0,

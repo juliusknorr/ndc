@@ -1,0 +1,6 @@
+.box_dump
+.idea/
+.php-cs-fixer.cache
+ndc.phar
+vendor/
+vendor-bin/

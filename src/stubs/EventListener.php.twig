@@ -6,15 +6,17 @@ declare(strict_types=1);
 namespace {{ namespace }};
 
 use OCP\EventDispatcher\IEventListener;
+{% for event in events %}
+use {{ event }};
+{% endfor %}
 
+/** @template-implements IEventListener<Event|{{ events | join('|') | raw }}> */
 class {{ class }} extends Event {
-
 	public function handle(Event $event): void {
         if (!$event instanceof {{ events | join(' && !$event instanceof ') | raw }}) {
             return;
         }
 
-        // to implement
+        // TODO: Add your implementation
     }
-
 }

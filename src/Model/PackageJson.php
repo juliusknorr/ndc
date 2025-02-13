@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Nextcloud\DevCli\Model;
@@ -27,7 +28,7 @@ class PackageJson {
 	}
 
 	public function writeBack(): void {
-		file_put_contents($this->path, $this);
+		file_put_contents($this->path, (string)$this);
 	}
 
 	/**
@@ -42,12 +43,11 @@ class PackageJson {
 	 * @param  bool   $unescapeSlashes Un escape slashes
 	 * @return string
 	 */
-	public static function format($json, $unescapeUnicode, $unescapeSlashes)
-	{
+	public static function format($json, $unescapeUnicode, $unescapeSlashes) {
 		$result = '';
 		$pos = 0;
 		$strLen = strlen($json);
-		$indentStr = "\t"; // FIXME: might be able to detect existing indent
+		$indentStr = "  "; // FIXME: might be able to detect existing indent
 		$newLine = "\n";
 		$outOfQuotes = true;
 		$buffer = '';
@@ -86,10 +86,10 @@ class PackageJson {
 							}
 
 							return str_repeat('\\', $l - 1) . mb_convert_encoding(
-									pack('H*', $match[2]),
-									'UTF-8',
-									'UCS-2BE'
-								);
+								pack('H*', $match[2]),
+								'UTF-8',
+								'UCS-2BE'
+							);
 						}
 
 						return $match[0];

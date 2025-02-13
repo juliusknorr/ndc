@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.14.1@b9d355e0829c397b9b3b47d0c0ed042a8a70284d">
+  <file src="src/Commands/Create/EventListener.php">
+    <TooFewArguments>
+      <code>sprintf</code>
+    </TooFewArguments>
+  </file>
+  <file src="src/Context/AuthorContext.php">
+    <ForbiddenCode>
+      <code><![CDATA[shell_exec('git config --global user.email')]]></code>
+      <code><![CDATA[shell_exec('git config --global user.name')]]></code>
+    </ForbiddenCode>
+  </file>
+  <file src="src/Context/BuildContext.php">
+    <ForbiddenCode>
+      <code><![CDATA[shell_exec('krankerl --version 2>&1')]]></code>
+      <code><![CDATA[shell_exec('node -v')]]></code>
+      <code><![CDATA[shell_exec('npm -v')]]></code>
+    </ForbiddenCode>
+  </file>
+  <file src="src/Generator/Changelog.php">
+    <UndefinedDocblockClass>
+      <code>$repo</code>
+      <code>$repo</code>
+    </UndefinedDocblockClass>
+    <UndefinedMethod>
+      <code>show</code>
+    </UndefinedMethod>
+  </file>
+  <file src="src/Model/PackageJson.php">
+    <ForbiddenCode>
+      <code>var_dump($jsonString)</code>
+      <code><![CDATA[var_dump($this->path)]]></code>
+    </ForbiddenCode>
+  </file>
+</files>

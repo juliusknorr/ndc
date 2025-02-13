@@ -1,0 +1,17 @@
+rm -fr test
+mkdir test
+cd test
+
+php ../ndc.php create:app my_app -f
+cd my_app
+
+php ../../ndc.php create:event MyEvent
+php ../../ndc.php create:listener MyListener MyEvent
+php ../../ndc.php create:class Utils
+php ../../ndc.php create:class Service/MyService
+
+tree
+
+cd ..
+
+cd ..

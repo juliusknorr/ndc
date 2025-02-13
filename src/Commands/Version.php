@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Nextcloud\DevCli\Commands;
@@ -24,6 +25,10 @@ class Version extends Command {
 			return 1;
 		}
 		$output->writeln('App context: ' . $appContext->getAppInfo()->version);
+
+		if (!$level) {
+			return 0;
+		}
 
 		$appInfo = $appContext->getAppInfo();
 		$newVersion = $this->increaseVersion((string)$appInfo->version, $level);
@@ -51,18 +56,18 @@ class Version extends Command {
 		$existingVersion = explode('-', $currentVersion);
 		$existingPostfix = $existingVersion[1] ?? null;
 		$existingVersion = $existingVersion[0] ?? null;
-		$existingVersion = array_map(function($i) { return (int)$i; }, explode('.', $existingVersion));
+		$existingVersion = array_map(function ($i) { return (int)$i; }, explode('.', $existingVersion));
 
 		$newVersion = $existingVersion;
 		if ($level === 'patch') {
-			$newVersion[2] = (int)$newVersion[2] + 1;
+			$newVersion[2] = $newVersion[2] + 1;
 		} elseif ($level === 'minor') {
-			$newVersion[1] = (int)$newVersion[1] + 1;
+			$newVersion[1] = $newVersion[1] + 1;
 			if (isset($newVersion[2])) {
 				$newVersion[2] = 0;
 			}
 		} elseif ($level === 'major') {
-			$newVersion[0] = (int)$newVersion[0] + 1;
+			$newVersion[0] = $newVersion[0] + 1;
 			if (isset($newVersion[1])) {
 				$newVersion[1] = 0;
 			}

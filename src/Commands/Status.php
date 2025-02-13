@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Nextcloud\DevCli\Commands;
@@ -12,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Status extends Command {
 
- 	public function __construct(private AppContext $appContext, private GitContext $gitContext, private BuildContext $buildContext) {
+	public function __construct(private AppContext $appContext, private GitContext $gitContext, private BuildContext $buildContext) {
 		parent::__construct();
 	}
 

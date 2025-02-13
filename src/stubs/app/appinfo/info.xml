@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>my_app</id>
+    <name>My app</name>
+    <summary>My app example</summary>
+    <description><![CDATA[My app example description]]></description>
+    <version>1.0.0</version>
+    <licence>agpl</licence>
+    <author mail="jane@example.com">Jane Doe</author>
+    <namespace>MyApp</namespace>
+    <category>tools</category>
+    <bugs>https://github.com/nextcloud/my_app/issues</bugs>
+    <dependencies>
+        <nextcloud min-version="28" max-version="28"/>
+    </dependencies>
+</info>

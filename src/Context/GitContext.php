@@ -1,9 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Nextcloud\DevCli\Context;
 
 use Github\Client;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class GitContext {
 
@@ -14,23 +17,34 @@ class GitContext {
 	}
 
 	public function isGitClean(): bool {
-		return trim(preg_replace('/\s\s+/', ' ', shell_exec('git status --porcelain'))) === '';
+		return trim(preg_replace('/\s\s+/', ' ', $this->gitCommand(['status', '--porcelain']))) === '';
 	}
 
 	public function getBranchName(): string {
-		return trim(preg_replace('/\s\s+/', ' ', shell_exec('git branch --show-current')));
+		return trim(preg_replace('/\s\s+/', ' ', $this->gitCommand(['branch', '--show-current'])));
 	}
 
 	public function getGithubRepo(): string {
-		$remote = trim(preg_replace('/\s\s+/', ' ', shell_exec('git remote get-url origin')));
+		$remote = trim(preg_replace('/\s\s+/', ' ', $this->gitCommand(['remote', 'get-url', 'origin'])));
 		preg_match('/(.*):(.*)\/(.*)\.git/', $remote, $matches);
 		return $matches[3];
 	}
 
 	public function getGithubOrg(): string {
-		$remote = trim(preg_replace('/\s\s+/', ' ', shell_exec('git remote get-url origin')));
+		$remote = trim(preg_replace('/\s\s+/', ' ', $this->gitCommand(['remote', 'get-url', 'origin'])));
 		preg_match('/(.*):(.*)\/(.*)\.git/', $remote, $matches);
 		return $matches[2];
+	}
+
+	public function gitCommand(array $command): string {
+		$process = new Process(['git', ...$command]);
+		$process->run();
+
+		if (!$process->isSuccessful()) {
+			//throw new ProcessFailedException($process);
+		}
+
+		return $process->getOutput();
 	}
 
 	public function getClient(): Client {

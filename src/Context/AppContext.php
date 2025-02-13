@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Nextcloud\DevCli\Context;
@@ -24,7 +25,7 @@ class AppContext {
 			}
 			$xmlContent = str_replace('<?xml version="1.0"?>', '<?xml version="1.0" encoding="utf-8"?>', file_get_contents(self::APP_INFO_PATH));
 			$appInfoXml = new SimpleXMLElement($xmlContent);
-			$this->appInfo = new AppInfo($appInfoXml);
+			$this->appInfo = new AppInfo($appInfoXml, $this);
 			$this->inAppContext = true;
 		}
 		return $this->appInfo;
@@ -45,8 +46,9 @@ class AppContext {
 		return $this->inAppContext;
 	}
 
-	public function writeAppInfo() {
-		$this->appInfo->getXMLElement()->asXML(self::APP_INFO_PATH);
+	public function writeAppInfo(?AppInfo $appInfo = null) {
+		$appInfo = $appInfo ?? $this->appInfo;
+		$appInfo->getXMLElement()->asXML(self::APP_INFO_PATH);
 	}
 
 	public function getAppPath(): string {

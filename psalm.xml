@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="4"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config"
+    errorBaseline="test/psalm-baseline.xml"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+            <directory name="src/stubs" />
+        </ignoreFiles>
+    </projectFiles>
+    <extraFiles>
+        <directory name="vendor" />
+    </extraFiles>
+	<issueHandlers>
+	</issueHandlers>
+</psalm>

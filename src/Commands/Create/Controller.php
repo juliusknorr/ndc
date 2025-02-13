@@ -1,25 +1,34 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Nextcloud\DevCli\Commands\Create;
 
+use Nextcloud\DevCli\Generator\FileCreator;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class Controller extends BaseCreator {
-	protected function configure(): void {
+class Controller extends Command {
+	use CreateTrait;
+	public function __construct(private FileCreator $fileCreator) {
+		parent::__construct('create:controller');
 		$this
-			->setName('create:controller')
 			->setDescription('Creates a new controller class')
-			->addArgument('className', InputArgument::REQUIRED);
+			->addArgument('className', InputArgument::REQUIRED)
+			->addOption('dry', 'd', InputOption::VALUE_NONE)
+		;
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int {
-		$inputName = $input->getArgument('className');
-		$className = $this->buildNewClassNamespace($inputName, 'Controller', 'Controller');
-		$this->createClassFromStub('Controller', $className, []);
-		$output->writeln('Created controller ' . $className);
-		return 0;
+		$this->setInputOutput($input, $output);
+
+		return $this->writeClass(
+			className: $input->getArgument('className'),
+			stub: 'Controller',
+			normalizedClassPostfix: 'Controller'
+		);
 	}
 }

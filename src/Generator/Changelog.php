@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Nextcloud\DevCli\Generator;
@@ -8,23 +9,23 @@ use Nextcloud\DevCli\Context\AppContext;
 use Nextcloud\DevCli\Context\GitContext;
 use Spatie\Async\Pool;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
 class Changelog {
 
-    private const MAX_THREAD_BUFFER = 10485760;
+	private const MAX_THREAD_BUFFER = 10485760;
+	private $changelogEntries = [];
 
 	public function __construct(private AppContext $appContext, private GitContext $gitContext) {
-        
-    }
+		
+	}
 
-    /**
-     * Fetch commits between base and current version
-     */
-    public function fetchPullrequests(string $branch = null, $previousVersion, OutputInterface $output = null) {
-        $branch = $branch ?? $this->gitContext->getBranchName();
+	/**
+	 * Fetch commits between base and current version
+	 */
+	public function fetchPullrequests(string $branch = null, $previousVersion, OutputInterface $output = null) {
+		$branch = $branch ?? $this->gitContext->getBranchName();
 		$orgName = $this->gitContext->getGithubOrg();
 		$repoName = $this->gitContext->getGithubRepo();
 
@@ -36,7 +37,7 @@ class Changelog {
 		} catch (RuntimeException $e) {
 			if ($e->getMessage() === 'Not Found') {
 				$output->writeln('<error>Could not find base or head reference on ' . $repoName. '.</error>');
-                die(1);
+				die(1);
 			}
 			throw $e;
 		}
@@ -47,18 +48,19 @@ class Changelog {
 			[$firstLine,] = explode("\n", $fullMessage, 2);
 			if (strpos($firstLine, 'Merge pull request #') === 0) {
 				$firstLine = substr($firstLine, 20);
-				list($number,) = explode(" ", $firstLine, 2);
+				list($number, ) = explode(" ", $firstLine, 2);
 				$pullRequests[] = $number;
+				$output->writeln('PR ' . $number);
 			}
 		}
-        return $pullRequests;
-    }
+		return $pullRequests;
+	}
 
-    public function processPullRequests($pullRequests, $output) {
-        // Processing individual pull requests
+	public function processPullRequests($pullRequests, $output) {
+		// Processing individual pull requests
 		$client = $this->gitContext->getClient();
-        $orgName = $this->gitContext->getGithubOrg();
-        $repoName = $this->gitContext->getGithubRepo();
+		$orgName = $this->gitContext->getGithubOrg();
+		$repoName = $this->gitContext->getGithubRepo();
 
 		$pool = Pool::create()
 			->concurrency(5)
@@ -80,8 +82,8 @@ class Changelog {
 				}
 				$this->processPullRequest($output);
 				$progressBar->advance();
-			})->catch(function (Throwable $exception) use ($progressBar, $prNumber) {
-				//echo $exception;
+			})->catch(function (Throwable $exception) use ($progressBar, $prNumber, $output) {
+				$output->writeln('Failed to fetch ' . $prNumber . ': ' . $exception->getMessage());
 				$progressBar->advance();
 				return true;
 			});
@@ -91,11 +93,11 @@ class Changelog {
 		$output->writeln('');
 		$output->writeln('');
 		$output->writeln('');
-    }
+	}
 
 
 	private function processPullRequest(array $prData): void {
-		$labels = array_map(fn($label) => $label['name'], $prData['labels']);
+		$labels = array_map(fn ($label) => $label['name'], $prData['labels']);
 		if (in_array('enhancement', $labels, true)) {
 			if (!isset($this->changelogEntries['added'])) {
 				$this->changelogEntries['added'] = [];
@@ -118,7 +120,22 @@ class Changelog {
 			$this->changelogEntries['other'][] = $prData;
 		}
 	}
-    
+
+	public function filterOutEntries(callable $filter): void {
+		$entries = [];
+		foreach ($this->changelogEntries as $category => $categoryEntries) {
+			foreach ($categoryEntries as $entry) {
+				if ($filter($entry)) {
+					if (!isset($entries[$category])) {
+						$entries[$category] = [];
+					}
+					$entries[$category][] = $entry;
+				}
+			}
+		}
+		$this->changelogEntries = $entries;
+	}
+	
 
 	public function getChangelogEntry(string $version, OutputInterface $output): void {
 		$output->writeln('## ' . $version);
@@ -146,11 +163,11 @@ class Changelog {
 				$title = mb_substr($title, mb_strlen($branchPrefix));
 			}
 
-			if ($user === ' @backportbot-nextcloud[bot]') {
+			if ($user === ' @backportbot-nextcloud[bot]' || $user === ' @backportbot[bot]') {
 				$user = '';
 			}
 
-			$output->writeln('- ' . $title . $user . ' [#' . $pullRequest['number'] . '](' . $pullRequest['url'] . ')' );
+			$output->writeln('- ' . $title . $user . ' [#' . $pullRequest['number'] . '](' . $pullRequest['html_url'] . ')');
 		}
 		$output->writeln('');
 	}
