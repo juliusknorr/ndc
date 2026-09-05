@@ -6,7 +6,7 @@
         "symfony/console": "^6.0",
         "twig/twig": "^3.3",
         "ext-simplexml": "*",
-        "php-di/php-di": "^6.3",
+        "php-di/php-di": "^7.0",
         "composer/semver": "^3.2",
         "knplabs/github-api": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
