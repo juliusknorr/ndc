@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa43192d72efe110a48c96e91a476a65",
+    "content-hash": "3aaff60a09527056629a8dd56dfac80d",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -2661,20 +2661,20 @@
         },
         {
             "name": "psalm/phar",
-            "version": "5.26.1",
+            "version": "6.20.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/phar.git",
-                "reference": "8a38e7ad04499a0ccd2c506fd1da6fc01fff4547"
+                "reference": "d32b1650f6fea6a915575f97fd596422c58fef37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/phar/zipball/8a38e7ad04499a0ccd2c506fd1da6fc01fff4547",
-                "reference": "8a38e7ad04499a0ccd2c506fd1da6fc01fff4547",
+                "url": "https://api.github.com/repos/psalm/phar/zipball/d32b1650f6fea6a915575f97fd596422c58fef37",
+                "reference": "d32b1650f6fea6a915575f97fd596422c58fef37",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^8.2"
             },
             "conflict": {
                 "vimeo/psalm": "*"
@@ -2690,9 +2690,10 @@
             "description": "Composer-based Psalm Phar",
             "support": {
                 "issues": "https://github.com/psalm/phar/issues",
-                "source": "https://github.com/psalm/phar/tree/5.26.1"
+                "source": "https://github.com/psalm/phar/tree/6.20.4"
             },
-            "time": "2024-09-09T16:22:43+00:00"
+            "time": "2026-10-29T11:30:02+00:00",
+            "published-time": "2026-10-29T11:30:13+00:00"
         }
     ],
     "aliases": [],
@@ -2705,5 +2706,5 @@
         "ext-dom": "*"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
