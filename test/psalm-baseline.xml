@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+<files psalm-version="7.6.0@4303c7dbbc23efaac3d988707b4acf4d5508a9cc">
+  <file src="src/Commands/Changelog.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function configure(): void {]]></code>
+      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int {]]></code>
+    </MissingOverrideAttribute>
+  </file>
   <file src="src/Commands/Configure.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int {]]></code>
+    </MissingOverrideAttribute>
     <UndefinedInterfaceMethod>
       <code><![CDATA[ask]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Commands/Create/App.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int {]]></code>
+    </MissingOverrideAttribute>
     <UndefinedInterfaceMethod>
       <code><![CDATA[ask]]></code>
       <code><![CDATA[ask]]></code>
     </UndefinedInterfaceMethod>
   </file>
+  <file src="src/Commands/Create/BaseClass.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Commands/Create/Controller.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Commands/Create/Event.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int {]]></code>
+    </MissingOverrideAttribute>
+  </file>
   <file src="src/Commands/Create/EventListener.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int {]]></code>
+    </MissingOverrideAttribute>
     <RedundantFunctionCall>
       <code><![CDATA[sprintf]]></code>
     </RedundantFunctionCall>
@@ -20,9 +50,40 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Commands/Release.php">
+    <ImplicitToStringCast>
+      <code><![CDATA[$maxVersion ?? '']]></code>
+      <code><![CDATA[$minVersion ?? '']]></code>
+      <code><![CDATA[$versionRange]]></code>
+    </ImplicitToStringCast>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function configure(): void {]]></code>
+      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int {]]></code>
+    </MissingOverrideAttribute>
     <UndefinedInterfaceMethod>
       <code><![CDATA[ask]]></code>
     </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Commands/Status.php">
+    <ImplicitToStringCast>
+      <code><![CDATA[$maxVersion ?? '']]></code>
+      <code><![CDATA[$minVersion ?? '']]></code>
+      <code><![CDATA[$versionRange]]></code>
+    </ImplicitToStringCast>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function configure(): void {]]></code>
+      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Commands/Version.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function configure(): void {]]></code>
+      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Context/AppContext.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[getcwd()]]></code>
+    </FalsableReturnStatement>
   </file>
   <file src="src/Context/AuthorContext.php">
     <ForbiddenCode>
@@ -40,7 +101,7 @@
   <file src="src/Generator/Changelog.php">
     <UndefinedDocblockClass>
       <code><![CDATA[$repo]]></code>
-      <code><![CDATA[$repo]]></code>
+      <code><![CDATA[Repo]]></code>
     </UndefinedDocblockClass>
     <UndefinedMethod>
       <code><![CDATA[show]]></code>
